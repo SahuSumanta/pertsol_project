@@ -97,7 +97,7 @@ Secure authentication for police officers before accessing the dashboard.
 - Dark glassmorphism styling
 
 **Screenshot:**  
-![Login Screen](docs/images/login-screen.png)
+<img width="1470" height="802" alt="login" src="https://github.com/user-attachments/assets/a0b3887a-1ec5-42f3-b083-86d1e9a153a9" />
 
 ---
 
@@ -114,7 +114,8 @@ Main 3-column workspace: left sidebar (suspects + day), center (map), right pane
 - Right panel: timeline, intel metrics, pattern panel, location intel, network graph, events, notes
 
 **Screenshot:**  
-![Dashboard Overview](docs/images/dashboard.png)
+<img width="1470" height="799" alt="dashboard" src="https://github.com/user-attachments/assets/1e883a7c-dc69-4a7a-b3a1-1bef2767161c" />
+
 
 ---
 
@@ -131,7 +132,8 @@ Select which suspect’s data to view on the map and panels.
 - “View profile” (open in new) navigates to Suspect Deep Intelligence screen
 
 **Screenshot:**  
-![Suspect List Panel](docs/images/suspect-list.png)
+<img width="276" height="477" alt="succpectlist" src="https://github.com/user-attachments/assets/2f8f79a4-1b24-4c58-81cc-060e53187aec" />
+
 
 ---
 
@@ -149,7 +151,8 @@ Central map for route visualization and all map layers.
 - Marker click → timeline highlight + Location Intelligence panel update
 
 **Screenshot:**  
-![Map Intelligence Workspace](docs/images/map-workspace.png)
+<img width="1466" height="794" alt="map" src="https://github.com/user-attachments/assets/d345131f-8a9c-4d7d-bd2b-8d7448fcec18" />
+
 
 ---
 
@@ -166,7 +169,8 @@ Chronological list of movements for the selected suspect/day.
 - Play-style controls when used with Time Warp
 
 **Screenshot:**  
-![Timeline Panel](docs/images/timeline.png)
+<img width="318" height="751" alt="Timeline Panel" src="https://github.com/user-attachments/assets/5fe5d4a5-d0a7-4b5f-9730-c109867af11b" />
+
 
 ---
 
@@ -181,7 +185,8 @@ Show aggregate stats for the selected suspect.
 - Risk score gauge (0–100) with level and breakdown legend
 
 **Screenshot:**  
-![Intelligence Metrics Panel](docs/images/intel-panel.png)
+<img width="318" height="543" alt="Intelligence Metrics Panel" src="https://github.com/user-attachments/assets/1d308041-d9d4-4ca2-8846-d087ca4699d7" />
+
 
 ---
 
@@ -196,7 +201,7 @@ Surface suspicious movement patterns.
 - Fast hops (from city → to city with times, e.g. < 4 hours between cities)
 
 **Screenshot:**  
-![Pattern Detection Panel](docs/images/pattern-panel.png)
+
 
 ---
 
@@ -211,7 +216,7 @@ List investigation events for the selected suspect.
 - Linked to movements where applicable
 
 **Screenshot:**  
-![Events Panel](docs/images/events-panel.png)
+
 
 ---
 
@@ -226,7 +231,7 @@ Display investigation notes for the selected suspect.
 - Simple list layout
 
 **Screenshot:**  
-![Notes Panel](docs/images/notes-panel.png)
+
 
 ---
 
@@ -241,7 +246,8 @@ Show suspect relationships (associates network).
 - Centered on selected suspect
 
 **Screenshot:**  
-![Network Graph Panel](docs/images/network-graph.png)
+<img width="756" height="667" alt="Network Graph Panel" src="https://github.com/user-attachments/assets/b661c62a-41dc-44da-86dc-855def7e0600" />
+
 
 ---
 
@@ -260,7 +266,8 @@ Full-screen investigative workspace for one suspect: past, present, and threat f
 **Route:** `/suspect/:id`
 
 **Screenshot:**  
-![Suspect Intelligence Profile Screen](docs/images/suspect-deep-intel.png)
+<img width="1469" height="801" alt="Suspect Intelligence Profile Screen" src="https://github.com/user-attachments/assets/de1ed028-e785-42f5-925f-0c77196c0f2f" />
+
 
 ---
 
@@ -276,7 +283,8 @@ Allow officers to add a new suspect to the list.
 - Glassmorphism overlay styling
 
 **Screenshot:**  
-![Add New Suspect Modal](docs/images/add-suspect.png)
+<img width="745" height="781" alt="Add New Suspect Modal" src="https://github.com/user-attachments/assets/532c6828-88e8-47fc-9757-fd0cbd84301d" />
+
 
 ---
 
@@ -293,7 +301,8 @@ Share the current suspect case with another officer.
 - Share creates shared case record (in-memory)
 
 **Screenshot:**  
-![Case Sharing Screen](docs/images/case-share.png)
+<img width="508" height="549" alt="Case Sharing Screen" src="https://github.com/user-attachments/assets/29285db9-6d4b-4636-9b80-aebf564928f5" />
+
 
 ---
 
@@ -309,7 +318,7 @@ Replay suspect movement over time with map and timeline in sync.
 - Emits movement selection so dashboard timeline and location intel stay in sync
 
 **Screenshot:**  
-![Time Warp Investigation Mode](docs/images/time-warp.png)
+
 
 ---
 
