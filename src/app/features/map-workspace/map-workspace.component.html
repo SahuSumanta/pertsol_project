@@ -1,0 +1,70 @@
+<div class="map-workspace">
+  <div class="map-workspace__toolbar">
+    <app-icon-button label="Route" (click)="showRoute()">
+      <span icon class="material-icons-outlined">route</span>
+    </app-icon-button>
+    <app-icon-button label="Clusters" (click)="showClusters()">
+      <span icon class="material-icons-outlined">scatter_plot</span>
+    </app-icon-button>
+    <app-icon-button label="Heatmap" (click)="showHeatmap()">
+      <span icon class="material-icons-outlined">whatshot</span>
+    </app-icon-button>
+
+    <div class="map-workspace__toolbar-divider"></div>
+
+    <button
+      class="map-workspace__layer-btn"
+      [class.map-workspace__layer-btn--active]="cellTowersVisible"
+      (click)="toggleCellTowers()"
+      title="Toggle Cell Towers"
+    >
+      <span class="material-icons-outlined">cell_tower</span>
+      <span class="map-workspace__layer-label">Cell Towers</span>
+    </button>
+
+    <button
+      class="map-workspace__layer-btn"
+      [class.map-workspace__layer-btn--active]="policeStationsVisible"
+      (click)="togglePoliceStations()"
+      title="Toggle Police Stations"
+    >
+      <span class="material-icons-outlined">local_police</span>
+      <span class="map-workspace__layer-label">Police Stations</span>
+    </button>
+
+    <button
+      class="map-workspace__layer-btn"
+      [class.map-workspace__layer-btn--active]="forecastMode"
+      (click)="toggleForecast()"
+      title="Threat Forecast"
+    >
+      <span class="material-icons-outlined">radar</span>
+      <span class="map-workspace__layer-label">Forecast</span>
+    </button>
+  </div>
+
+  <div class="map-workspace__controls">
+    <button class="map-workspace__control-btn" title="Zoom in" (click)="zoomIn()">
+      <span class="material-icons-outlined">add</span>
+    </button>
+    <button class="map-workspace__control-btn" title="Zoom out" (click)="zoomOut()">
+      <span class="material-icons-outlined">remove</span>
+    </button>
+    <button class="map-workspace__control-btn" title="Reset view" (click)="resetView()">
+      <span class="material-icons-outlined">my_location</span>
+    </button>
+    <button class="map-workspace__control-btn" title="Layers">
+      <span class="material-icons-outlined">layers</span>
+    </button>
+  </div>
+
+  @if (activeSuspectName) {
+    <div class="map-workspace__target-badge">
+      <span class="map-workspace__target-dot"></span>
+      <span class="map-workspace__target-name">{{ activeSuspectName }}</span>
+      <span class="map-workspace__target-status">TRACKING</span>
+    </div>
+  }
+
+  <div #mapContainer class="map-workspace__map"></div>
+</div>

@@ -1,0 +1,6 @@
+[
+  { "id": "OFF001", "name": "Inspector Sharma", "role": "Lead Investigator", "password": "intel2024", "badge": "IB-2847", "avatar": "IS" },
+  { "id": "OFF002", "name": "ACP Verma", "role": "Supervisor", "password": "intel2024", "badge": "IB-1593", "avatar": "AV" },
+  { "id": "OFF003", "name": "SI Priya Kapoor", "role": "Field Agent", "password": "intel2024", "badge": "IB-4210", "avatar": "PK" },
+  { "id": "OFF004", "name": "DSP Rajesh Nair", "role": "Intelligence Analyst", "password": "intel2024", "badge": "IB-3371", "avatar": "RN" }
+]

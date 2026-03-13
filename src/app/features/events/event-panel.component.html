@@ -1,0 +1,39 @@
+<app-glass-card>
+  <div class="event-panel">
+    <div class="event-panel__header">
+      <span class="material-icons-outlined event-panel__icon">emergency</span>
+      <h2 class="event-panel__title">Investigation Events</h2>
+    </div>
+
+    @if (events$ | async; as events) {
+      @if (events.length > 0) {
+        <ul class="event-list">
+          @for (event of events; track event.id) {
+            <li class="event-list__item">
+              <div class="event-list__icon-wrap">
+                <span class="material-icons-outlined">{{ getEventIcon(event.title) }}</span>
+              </div>
+              <div class="event-list__content">
+                <div class="event-list__title">{{ event.title }}</div>
+                <div class="event-list__description">{{ event.description }}</div>
+              </div>
+              <div class="event-list__time">
+                {{ event.timestamp | date: 'MMM d' }}
+              </div>
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="event-panel__empty">
+          <span class="material-icons-outlined">info</span>
+          No events for this suspect.
+        </div>
+      }
+    } @else {
+      <div class="event-panel__empty">
+        <span class="material-icons-outlined">info</span>
+        Select a suspect to view events.
+      </div>
+    }
+  </div>
+</app-glass-card>

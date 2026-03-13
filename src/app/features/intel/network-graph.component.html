@@ -1,0 +1,35 @@
+@if (nodes$ | async; as nodes) {
+  <app-glass-card>
+    <div class="network-panel">
+      <div class="network-panel__header">
+        <span class="material-icons-outlined network-panel__icon">hub</span>
+        <h2 class="network-panel__title">Suspect Network</h2>
+      </div>
+
+      <div class="network-graph">
+        @for (node of nodes; track node.id) {
+          <div
+            class="network-node"
+            [class.network-node--selected]="node.id === selectedSuspectId"
+            [class.network-node--connected]="selectedSuspectId !== null && node.connections.includes(selectedSuspectId)"
+          >
+            <div class="network-node__left">
+              <div class="network-node__avatar"
+                [class.network-node__avatar--active]="node.id === selectedSuspectId">
+                {{ node.displayName.charAt(0) }}
+              </div>
+              <div class="network-node__name">{{ node.displayName }}</div>
+            </div>
+            <div class="network-node__connections">
+              @for (conn of node.connections; track conn) {
+                <span class="network-node__chip">
+                  {{ getDisplayName(nodes, conn) }}
+                </span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </app-glass-card>
+}

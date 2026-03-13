@@ -1,0 +1,81 @@
+[
+  {
+    "id": "ps1",
+    "name": "Connaught Place Police Station",
+    "latitude": 28.6328,
+    "longitude": 77.2197
+  },
+  {
+    "id": "ps2",
+    "name": "Mumbai Crime Branch HQ",
+    "latitude": 18.9420,
+    "longitude": 72.8347
+  },
+  {
+    "id": "ps3",
+    "name": "Jaipur Commissionerate Office",
+    "latitude": 26.9180,
+    "longitude": 75.7990
+  },
+  {
+    "id": "ps4",
+    "name": "Ahmedabad City Police HQ",
+    "latitude": 23.0285,
+    "longitude": 72.5800
+  },
+  {
+    "id": "ps5",
+    "name": "Hyderabad Banjara Hills Station",
+    "latitude": 17.4224,
+    "longitude": 78.4483
+  },
+  {
+    "id": "ps6",
+    "name": "Bangalore Cubbon Park Station",
+    "latitude": 12.9764,
+    "longitude": 77.5929
+  },
+  {
+    "id": "ps7",
+    "name": "Chennai Egmore Police Station",
+    "latitude": 13.0752,
+    "longitude": 80.2627
+  },
+  {
+    "id": "ps8",
+    "name": "Kolkata Lalbazar Police HQ",
+    "latitude": 22.5674,
+    "longitude": 88.3528
+  },
+  {
+    "id": "ps9",
+    "name": "Lucknow Hazratganj Police Station",
+    "latitude": 26.8512,
+    "longitude": 80.9466
+  },
+  {
+    "id": "ps10",
+    "name": "Bhopal TT Nagar Police Station",
+    "latitude": 23.2405,
+    "longitude": 77.3969
+  },
+  {
+    "id": "ps11",
+    "name": "Indore MG Road Police Station",
+    "latitude": 22.7215,
+    "longitude": 75.8680
+  },
+  {
+    "id": "ps12",
+    "name": "Nagpur Sitabuldi Police Station",
+    "latitude": 21.1472,
+    "longitude": 79.0822
+  },
+  {
+    "id": "ps13",
+    "name": "Pune Bund Garden Police Station",
+    "latitude": 18.5370,
+    "longitude": 73.8755
+  }
+]
+

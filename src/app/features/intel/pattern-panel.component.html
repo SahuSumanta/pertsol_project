@@ -1,0 +1,51 @@
+@if (patterns$ | async; as patterns) {
+  <app-glass-card>
+    <div class="pattern-panel">
+      <div class="pattern-panel__header">
+        <span class="material-icons-outlined pattern-panel__icon">warning_amber</span>
+        <h2 class="pattern-panel__title">Suspicious Patterns</h2>
+      </div>
+
+      @if (patterns.repeatedCities.length > 0) {
+        <div class="pattern-section">
+          <div class="pattern-section__title">
+            <span class="material-icons-outlined">repeat</span>
+            Repeated cities
+          </div>
+          <ul class="pattern-list">
+            @for (c of patterns.repeatedCities; track c.city) {
+              <li class="pattern-list__item">
+                <span class="pattern-list__label">{{ c.city }}</span>
+                <span class="pattern-list__badge">{{ c.visits }} visits</span>
+              </li>
+            }
+          </ul>
+        </div>
+      } @else {
+        <div class="pattern-empty">No repeated city visits detected.</div>
+      }
+
+      @if (patterns.fastHops.length > 0) {
+        <div class="pattern-section">
+          <div class="pattern-section__title">
+            <span class="material-icons-outlined">speed</span>
+            Fast hops (&le; 4h)
+          </div>
+          <ul class="pattern-list">
+            @for (hop of patterns.fastHops; track hop.fromCity + hop.toCity + hop.fromTime) {
+              <li class="pattern-list__item">
+                <span class="pattern-list__label">{{ hop.fromCity }} &rarr; {{ hop.toCity }}</span>
+                <span class="pattern-list__value">
+                  {{ hop.fromTime | date: 'MMM d, HH:mm' }} &rarr;
+                  {{ hop.toTime | date: 'HH:mm' }}
+                </span>
+              </li>
+            }
+          </ul>
+        </div>
+      } @else {
+        <div class="pattern-empty">No fast inter-city hops detected.</div>
+      }
+    </div>
+  </app-glass-card>
+}

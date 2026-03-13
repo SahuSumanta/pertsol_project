@@ -1,0 +1,51 @@
+{
+  "callLogs": [
+    { "id": "cl1", "suspectId": "s1", "contact": "David Kessler", "phone": "+49 152 4432 XXX", "duration": "12m 45s", "timestamp": "2024-03-07T14:22:00", "type": "incoming" },
+    { "id": "cl2", "suspectId": "s1", "contact": "Unknown (Encrypted)", "phone": "ENCRYPTED", "duration": "4m 12s", "timestamp": "2024-03-07T16:05:00", "type": "outgoing" },
+    { "id": "cl3", "suspectId": "s1", "contact": "Marcus Thorne", "phone": "+44 7700 900XXX", "duration": "0m 0s", "timestamp": "2024-03-07T18:30:00", "type": "missed" },
+    { "id": "cl4", "suspectId": "s1", "contact": "Anwar Raziq", "phone": "+91 98100 XXXXX", "duration": "8m 20s", "timestamp": "2024-03-06T11:45:00", "type": "incoming" },
+    { "id": "cl5", "suspectId": "s1", "contact": "Unknown (Burner)", "phone": "+91 70XX XXX XXX", "duration": "2m 55s", "timestamp": "2024-03-06T22:10:00", "type": "outgoing" },
+    { "id": "cl6", "suspectId": "s2", "contact": "Pradeep Mehta", "phone": "+91 99001 XXXXX", "duration": "6m 30s", "timestamp": "2024-03-07T10:15:00", "type": "incoming" },
+    { "id": "cl7", "suspectId": "s2", "contact": "Unknown (VoIP)", "phone": "VoIP Encrypted", "duration": "18m 02s", "timestamp": "2024-03-06T23:40:00", "type": "outgoing" },
+    { "id": "cl8", "suspectId": "s3", "contact": "Rahul Sharma", "phone": "+91 88765 XXXXX", "duration": "3m 10s", "timestamp": "2024-03-05T14:20:00", "type": "incoming" },
+    { "id": "cl9", "suspectId": "s4", "contact": "Unknown (Encrypted)", "phone": "ENCRYPTED", "duration": "22m 15s", "timestamp": "2024-03-07T02:30:00", "type": "outgoing" },
+    { "id": "cl10", "suspectId": "s5", "contact": "Vikram Patel", "phone": "+91 77009 XXXXX", "duration": "5m 40s", "timestamp": "2024-03-08T09:00:00", "type": "incoming" }
+  ],
+  "messages": [
+    { "id": "msg1", "suspectId": "s1", "from": "Kessler", "to": "Ravi Kumar", "content": "Package is ready at the usual dropsite near Jaipur station.", "timestamp": "2024-03-07T15:30:00", "direction": "incoming" },
+    { "id": "msg2", "suspectId": "s1", "from": "Ravi Kumar", "to": "Kessler", "content": "Confirmed. Heading there in 10.", "timestamp": "2024-03-07T15:32:00", "direction": "outgoing" },
+    { "id": "msg3", "suspectId": "s1", "from": "Anwar Raziq", "to": "Ravi Kumar", "content": "Meet near Mumbai Central at 6pm. Come alone.", "timestamp": "2024-03-06T12:00:00", "direction": "incoming" },
+    { "id": "msg4", "suspectId": "s1", "from": "Ravi Kumar", "to": "Anwar Raziq", "content": "Will be there. Bringing the documents.", "timestamp": "2024-03-06T12:05:00", "direction": "outgoing" },
+    { "id": "msg5", "suspectId": "s1", "from": "Unknown", "to": "Ravi Kumar", "content": "Shipment cleared Ahmedabad customs. Proceed to Pune warehouse.", "timestamp": "2024-03-05T20:15:00", "direction": "incoming", "encrypted": true },
+    { "id": "msg6", "suspectId": "s2", "from": "Pradeep", "to": "Amit Sharma", "content": "Goods arrived at Bangalore depot. Confirm pickup at Chennai port.", "timestamp": "2024-03-06T08:00:00", "direction": "incoming" },
+    { "id": "msg7", "suspectId": "s2", "from": "Amit Sharma", "to": "Pradeep", "content": "Chennai pickup confirmed for tomorrow morning.", "timestamp": "2024-03-06T08:10:00", "direction": "outgoing" },
+    { "id": "msg8", "suspectId": "s3", "from": "Rahul", "to": "Sanjay Verma", "content": "Transfer done from Kolkata branch. Check Lucknow account.", "timestamp": "2024-03-05T15:00:00", "direction": "incoming" },
+    { "id": "msg9", "suspectId": "s4", "from": "Unknown", "to": "Imran Khan", "content": "Delhi safe house compromised. Move to Lucknow immediately.", "timestamp": "2024-03-06T23:00:00", "direction": "incoming", "encrypted": true },
+    { "id": "msg10", "suspectId": "s5", "from": "Vikram", "to": "Rahul Patel", "content": "Indore warehouse ready. Ahmedabad route cleared.", "timestamp": "2024-03-08T07:30:00", "direction": "incoming" }
+  ],
+  "browsingHistory": [
+    { "id": "bh1", "suspectId": "s1", "url": "github.com/private-repo-x92", "category": "Development", "timestamp": "2024-03-07T09:15:00" },
+    { "id": "bh2", "suspectId": "s1", "url": "protonmail.com/login", "category": "Email", "timestamp": "2024-03-07T09:30:00" },
+    { "id": "bh3", "suspectId": "s1", "url": "map.geo-tracker.io/route-planner", "category": "Suspicious", "timestamp": "2024-03-07T10:00:00" },
+    { "id": "bh4", "suspectId": "s1", "url": "signal.org/download", "category": "Communication", "timestamp": "2024-03-07T10:20:00" },
+    { "id": "bh5", "suspectId": "s1", "url": "darknet-forum.onion/marketplace", "category": "Suspicious", "timestamp": "2024-03-06T23:45:00" },
+    { "id": "bh6", "suspectId": "s1", "url": "cryptowallet.io/transfer", "category": "Finance", "timestamp": "2024-03-06T22:30:00" },
+    { "id": "bh7", "suspectId": "s2", "url": "protonmail.com/inbox", "category": "Email", "timestamp": "2024-03-07T08:00:00" },
+    { "id": "bh8", "suspectId": "s2", "url": "telegram.org/web", "category": "Communication", "timestamp": "2024-03-06T21:00:00" },
+    { "id": "bh9", "suspectId": "s3", "url": "hawala-transfer.net/send", "category": "Suspicious", "timestamp": "2024-03-05T16:30:00" },
+    { "id": "bh10", "suspectId": "s4", "url": "vpn-secure.io/connect", "category": "Suspicious", "timestamp": "2024-03-07T01:00:00" },
+    { "id": "bh11", "suspectId": "s5", "url": "maps.google.com/directions", "category": "Suspicious", "timestamp": "2024-03-08T06:45:00" }
+  ],
+  "activitySpikes": [
+    { "suspectId": "s1", "day": "Monday", "calls": 3, "messages": 12, "browsing": 8 },
+    { "suspectId": "s1", "day": "Tuesday", "calls": 5, "messages": 18, "browsing": 14 },
+    { "suspectId": "s1", "day": "Wednesday", "calls": 2, "messages": 8, "browsing": 6 },
+    { "suspectId": "s1", "day": "Thursday", "calls": 8, "messages": 25, "browsing": 20 },
+    { "suspectId": "s1", "day": "Friday", "calls": 4, "messages": 15, "browsing": 10 },
+    { "suspectId": "s2", "day": "Monday", "calls": 1, "messages": 5, "browsing": 3 },
+    { "suspectId": "s2", "day": "Tuesday", "calls": 6, "messages": 20, "browsing": 12 },
+    { "suspectId": "s2", "day": "Wednesday", "calls": 3, "messages": 10, "browsing": 7 },
+    { "suspectId": "s2", "day": "Thursday", "calls": 2, "messages": 8, "browsing": 5 },
+    { "suspectId": "s2", "day": "Friday", "calls": 7, "messages": 22, "browsing": 16 }
+  ]
+}

@@ -1,0 +1,62 @@
+.day-panel {
+  padding: 0.75rem;
+}
+
+.day-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+
+.day-panel__icon {
+  font-size: 1rem;
+  color: #137fec;
+}
+
+.day-panel__title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a3a3a3;
+}
+
+.day-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.day-chip {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #737373;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.day-chip:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #a3a3a3;
+}
+
+.day-chip--selected {
+  background: #137fec;
+  border-color: #137fec;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.day-chip--selected:hover {
+  background: #1171d4;
+  border-color: #1171d4;
+  color: #ffffff;
+}

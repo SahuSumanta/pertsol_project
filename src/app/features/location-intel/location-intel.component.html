@@ -1,0 +1,169 @@
+@if (intel$ | async; as intel) {
+  @if (intel) {
+    <app-glass-card>
+      <div class="loc-intel">
+        <div class="loc-intel__header">
+          <div class="loc-intel__header-left">
+            <span class="material-icons-outlined loc-intel__icon">place</span>
+            <div class="loc-intel__titles">
+              <div class="loc-intel__title">Location Intelligence</div>
+              <div class="loc-intel__subtitle">
+                {{ intel.movement.city }} · {{ intel.movement.timestamp | date:'MMM d, HH:mm' }}
+              </div>
+            </div>
+          </div>
+          @if (intel.stayDurationMinutes) {
+            <div class="loc-intel__chip">
+              <span class="material-icons-outlined">schedule</span>
+              Stay ~{{ intel.stayDurationMinutes }} min
+            </div>
+          }
+        </div>
+
+        <div class="loc-intel__grid">
+          <!-- Phone activity -->
+          <div class="loc-intel__section">
+            <div class="loc-intel__section-header">
+              <span class="material-icons-outlined loc-intel__section-icon loc-intel__section-icon--green">call</span>
+              <span class="loc-intel__section-title">Phone activity</span>
+            </div>
+            @if (intel.calls.length > 0) {
+              <ul class="loc-intel__list">
+                @for (c of intel.calls; track c.id) {
+                  <li class="loc-intel__item">
+                    <div class="loc-intel__item-main">
+                      <span class="loc-intel__item-label">{{ c.contact }}</span>
+                      <span class="loc-intel__item-sub">{{ c.phone }}</span>
+                    </div>
+                    <div class="loc-intel__item-meta">
+                      <span class="loc-intel__pill">{{ c.duration }}</span>
+                      <span class="loc-intel__time">{{ c.timestamp | date:'HH:mm' }}</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <div class="loc-intel__empty">No calls recorded near this time.</div>
+            }
+          </div>
+
+          <!-- Messaging -->
+          <div class="loc-intel__section">
+            <div class="loc-intel__section-header">
+              <span class="material-icons-outlined loc-intel__section-icon loc-intel__section-icon--blue">chat</span>
+              <span class="loc-intel__section-title">Messaging</span>
+            </div>
+            @if (intel.messages.length > 0) {
+              <ul class="loc-intel__list">
+                @for (m of intel.messages; track m.id) {
+                  <li class="loc-intel__item">
+                    <div class="loc-intel__item-main">
+                      <span class="loc-intel__item-label">
+                        @if (m.direction === 'incoming') { From {{ m.from }} } @else { To {{ m.to }} }
+                      </span>
+                      <span class="loc-intel__item-sub">"{{ m.content }}"</span>
+                    </div>
+                    <div class="loc-intel__item-meta">
+                      @if (m.encrypted) {
+                        <span class="loc-intel__pill loc-intel__pill--danger">
+                          <span class="material-icons-outlined">lock</span>
+                          Encrypted
+                        </span>
+                      }
+                      <span class="loc-intel__time">{{ m.timestamp | date:'HH:mm' }}</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <div class="loc-intel__empty">No messages near this time.</div>
+            }
+          </div>
+
+          <!-- Browsing -->
+          <div class="loc-intel__section">
+            <div class="loc-intel__section-header">
+              <span class="material-icons-outlined loc-intel__section-icon loc-intel__section-icon--purple">language</span>
+              <span class="loc-intel__section-title">Browsing</span>
+            </div>
+            @if (intel.browsing.length > 0) {
+              <ul class="loc-intel__list">
+                @for (b of intel.browsing; track b.id) {
+                  <li class="loc-intel__item">
+                    <div class="loc-intel__item-main">
+                      <span class="loc-intel__item-label">{{ b.url }}</span>
+                      <span class="loc-intel__item-sub">{{ b.category }}</span>
+                    </div>
+                    <div class="loc-intel__item-meta">
+                      <span class="loc-intel__time">{{ b.timestamp | date:'HH:mm' }}</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <div class="loc-intel__empty">No browsing activity near this time.</div>
+            }
+          </div>
+
+          <!-- Infrastructure -->
+          <div class="loc-intel__section">
+            <div class="loc-intel__section-header">
+              <span class="material-icons-outlined loc-intel__section-icon loc-intel__section-icon--amber">hub</span>
+              <span class="loc-intel__section-title">Infrastructure</span>
+            </div>
+            <div class="loc-intel__infra">
+              @if (intel.tower) {
+                <div class="loc-intel__infra-row">
+                  <span class="loc-intel__infra-label">Connected tower</span>
+                  <span class="loc-intel__infra-value">
+                    {{ intel.tower.id }} · {{ intel.tower.name }}
+                  </span>
+                </div>
+              }
+              @if (intel.nearestStation) {
+                <div class="loc-intel__infra-row">
+                  <span class="loc-intel__infra-label">Nearest station</span>
+                  <span class="loc-intel__infra-value">
+                    {{ intel.nearestStation.station.name }}
+                    <span class="loc-intel__pill loc-intel__pill--soft">
+                      {{ intel.nearestStation.distanceKm }} km
+                    </span>
+                  </span>
+                </div>
+              }
+              @if (!intel.tower && !intel.nearestStation) {
+                <div class="loc-intel__empty">No infrastructure data available.</div>
+              }
+            </div>
+          </div>
+
+          <!-- Events -->
+          <div class="loc-intel__section loc-intel__section--wide">
+            <div class="loc-intel__section-header">
+              <span class="material-icons-outlined loc-intel__section-icon loc-intel__section-icon--rose">event_note</span>
+              <span class="loc-intel__section-title">Investigation events</span>
+            </div>
+            @if (intel.events.length > 0) {
+              <ul class="loc-intel__list">
+                @for (e of intel.events; track e.id) {
+                  <li class="loc-intel__item">
+                    <div class="loc-intel__item-main">
+                      <span class="loc-intel__item-label">{{ e.title }}</span>
+                      <span class="loc-intel__item-sub">{{ e.description }}</span>
+                    </div>
+                    <div class="loc-intel__item-meta">
+                      <span class="loc-intel__time">{{ e.timestamp | date:'MMM d, HH:mm' }}</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <div class="loc-intel__empty">No events recorded at this location window.</div>
+            }
+          </div>
+        </div>
+      </div>
+    </app-glass-card>
+  }
+}
+

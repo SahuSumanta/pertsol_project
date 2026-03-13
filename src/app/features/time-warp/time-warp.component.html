@@ -1,0 +1,86 @@
+<div class="timewarp-bar">
+  <div class="timewarp-bar__header">
+    <div class="timewarp-bar__title-group">
+      <span class="material-icons-outlined timewarp-bar__icon">history</span>
+      <span class="timewarp-bar__title">TIME WARP</span>
+      @if (currentMovement) {
+        <span class="timewarp-bar__location">
+          <span class="material-icons-outlined">location_on</span>
+          {{ currentMovement.city }}
+        </span>
+        <span class="timewarp-bar__time">
+          {{ currentMovement.timestamp | date:'MMM d, HH:mm' }}
+        </span>
+      }
+    </div>
+
+    <div class="timewarp-bar__controls">
+      <button class="timewarp-bar__ctrl-btn" (click)="reset()" title="Reset">
+        <span class="material-icons-outlined">replay</span>
+      </button>
+      <button class="timewarp-bar__ctrl-btn" (click)="stepBack()" title="Previous">
+        <span class="material-icons-outlined">skip_previous</span>
+      </button>
+      @if (isPlaying) {
+        <button class="timewarp-bar__play-btn" (click)="pause()">
+          <span class="material-icons-outlined">pause</span>
+        </button>
+      } @else {
+        <button class="timewarp-bar__play-btn" (click)="play()">
+          <span class="material-icons-outlined">play_arrow</span>
+        </button>
+      }
+      <button class="timewarp-bar__ctrl-btn" (click)="stepForward()" title="Next">
+        <span class="material-icons-outlined">skip_next</span>
+      </button>
+
+      <div class="timewarp-bar__speed-group">
+        <button
+          class="timewarp-bar__speed-btn"
+          [class.timewarp-bar__speed-btn--active]="speed === 2000"
+          (click)="setSpeed(2000)"
+        >0.5x</button>
+        <button
+          class="timewarp-bar__speed-btn"
+          [class.timewarp-bar__speed-btn--active]="speed === 1500"
+          (click)="setSpeed(1500)"
+        >1x</button>
+        <button
+          class="timewarp-bar__speed-btn"
+          [class.timewarp-bar__speed-btn--active]="speed === 800"
+          (click)="setSpeed(800)"
+        >2x</button>
+      </div>
+    </div>
+
+    <div class="timewarp-bar__right">
+      <span class="timewarp-bar__step-counter">{{ currentIndex + 1 }} / {{ movements.length }}</span>
+      <button class="timewarp-bar__close-btn" (click)="close.emit()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="timewarp-bar__slider-row">
+    <input
+      type="range"
+      class="timewarp-bar__slider"
+      [min]="0"
+      [max]="movements.length > 1 ? movements.length - 1 : 0"
+      [value]="currentIndex"
+      (input)="onSliderInput($event)"
+    />
+    <div class="timewarp-bar__track-fill" [style.width.%]="progress"></div>
+    <div class="timewarp-bar__markers">
+      @for (m of movements; track m.id; let i = $index) {
+        <span
+          class="timewarp-bar__marker-dot"
+          [class.timewarp-bar__marker-dot--passed]="i <= currentIndex"
+          [class.timewarp-bar__marker-dot--current]="i === currentIndex"
+          [style.left.%]="movements.length > 1 ? (i / (movements.length - 1)) * 100 : 50"
+          [title]="m.city"
+        ></span>
+      }
+    </div>
+  </div>
+</div>

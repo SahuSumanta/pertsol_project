@@ -1,0 +1,304 @@
+<div class="deep-root" *ngIf="vm$ | async as vm">
+    <div class="deep-top-bar">
+      <button type="button" class="deep-top-bar__back" (click)="goBack()">
+        <span class="material-icons-outlined">arrow_back</span>
+        <span>Back to dashboard</span>
+      </button>
+      <div class="deep-top-bar__title">Suspect Intelligence Workspace</div>
+    </div>
+
+    <div class="deep-shell">
+    <!-- LEFT: Identity & Status -->
+    <section class="deep-shell__left">
+      <app-glass-card>
+        <div class="deep-profile">
+          <div class="deep-profile__header">
+            <div class="deep-profile__avatar-wrap deep-profile__avatar-wrap--{{ vm.suspect?.riskLevel || 'low' }}">
+              <div class="deep-profile__avatar">
+                {{ vm.suspect?.displayName | slice:0:1 }}
+              </div>
+            </div>
+            <div class="deep-profile__identity">
+              <div class="deep-profile__name">
+                {{ vm.suspect?.displayName }}
+              </div>
+              @if (vm.suspect?.alias) {
+                <div class="deep-profile__alias">"{{ vm.suspect?.alias }}"</div>
+              }
+              <div class="deep-profile__status-row">
+                <span class="deep-profile__status-chip">
+                  Status: {{ vm.suspect?.surveillanceStatus || 'active' | titlecase }}
+                </span>
+                @if (risk$ | async; as risk) {
+                  <span class="deep-profile__risk-chip deep-profile__risk-chip--{{ risk.level }}">
+                    Risk: {{ risk.level | uppercase }} ({{ risk.score }})
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="deep-profile__metrics">
+            <div class="deep-profile__metric">
+              <div class="deep-profile__metric-label">Last seen</div>
+              <div class="deep-profile__metric-value">
+                {{ vm.suspect?.lastKnownLocation || 'Unknown' }}
+              </div>
+            </div>
+            <div class="deep-profile__metric">
+              <div class="deep-profile__metric-label">First seen</div>
+              <div class="deep-profile__metric-value">
+                @if (vm.firstSeen) {
+                  {{ vm.firstSeen | date:'MMM d, y HH:mm' }}
+                } @else {
+                  Unknown
+                }
+              </div>
+            </div>
+            <div class="deep-profile__metric">
+              <div class="deep-profile__metric-label">Primary corridor</div>
+              <div class="deep-profile__metric-value">
+                {{ vm.primaryCorridor || 'No clear pattern' }}
+              </div>
+            </div>
+          </div>
+
+          <div class="deep-profile__bars">
+            <div class="deep-profile__bar-row">
+              <span>Activity level</span>
+              <div class="deep-profile__bar">
+                <div class="deep-profile__bar-fill deep-profile__bar-fill--activity"></div>
+              </div>
+            </div>
+            <div class="deep-profile__bar-row">
+              <span>Signal strength</span>
+              <div class="deep-profile__bar">
+                <div class="deep-profile__bar-fill deep-profile__bar-fill--signal"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="deep-profile__associates">
+            <div class="deep-profile__section-title">Known associates</div>
+            @if (vm.associates.length > 0) {
+              <ul class="deep-profile__assoc-list">
+                @for (a of vm.associates; track trackById($index, a)) {
+                  <li class="deep-profile__assoc-item">
+                    <div class="deep-profile__assoc-avatar">
+                      {{ a.displayName | slice:0:1 }}
+                    </div>
+                    <div class="deep-profile__assoc-meta">
+                      <div class="deep-profile__assoc-name">{{ a.displayName }}</div>
+                      <div class="deep-profile__assoc-role">{{ a.alias || a.riskLevel || 'Unknown' }}</div>
+                    </div>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <div class="deep-profile__empty">No associates recorded.</div>
+            }
+          </div>
+        </div>
+      </app-glass-card>
+    </section>
+
+    <!-- CENTER: Communications & Digital -->
+    <section class="deep-shell__center">
+      <div class="deep-tabs">
+        @for (tab of tabs; track tab) {
+          <button
+            type="button"
+            class="deep-tabs__btn"
+            [class.deep-tabs__btn--active]="activeTab === tab"
+            (click)="setTab(tab)"
+          >
+            @if (tab === '7d') { Last 7 days }
+            @if (tab === '30d') { Last 30 days }
+            @if (tab === 'all') { All time }
+          </button>
+        }
+      </div>
+
+      <div class="deep-center-grid">
+        <!-- Call logs -->
+        <app-glass-card>
+          <div class="deep-card">
+            <div class="deep-card__header">
+              <span class="material-icons-outlined deep-card__icon">call</span>
+              <span class="deep-card__title">Call Logs</span>
+            </div>
+            @if (calls$ | async; as calls) {
+              <ul class="deep-list">
+                @for (c of calls; track c.id) {
+                  <li class="deep-list__item">
+                    <div class="deep-list__left">
+                      <div class="deep-list__primary">{{ c.contact }}</div>
+                      <div class="deep-list__secondary">{{ c.phone }}</div>
+                    </div>
+                    <div class="deep-list__right">
+                      <span class="deep-pill">{{ c.duration }}</span>
+                      @if (c.phone.toLowerCase().includes('encrypted') || c.contact.toLowerCase().includes('encrypted')) {
+                        <span class="deep-pill deep-pill--danger">Encrypted</span>
+                      }
+                      <span class="deep-time">{{ c.timestamp | date:'MMM d, HH:mm' }}</span>
+                    </div>
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        </app-glass-card>
+
+        <!-- Messaging -->
+        <app-glass-card>
+          <div class="deep-card">
+            <div class="deep-card__header">
+              <span class="material-icons-outlined deep-card__icon">sms</span>
+              <span class="deep-card__title">Messaging</span>
+            </div>
+            @if (messages$ | async; as msgs) {
+              <div class="deep-thread">
+                @for (m of msgs; track m.id) {
+                  <div
+                    class="deep-bubble"
+                    [class.deep-bubble--out]="m.direction === 'outgoing'"
+                  >
+                    <div class="deep-bubble__meta">
+                      <span class="deep-bubble__from">
+                        @if (m.direction === 'incoming') { From {{ m.from }} } @else { To {{ m.to }} }
+                      </span>
+                      <span class="deep-time">{{ m.timestamp | date:'MMM d, HH:mm' }}</span>
+                    </div>
+                    <div class="deep-bubble__content">
+                      "{{ m.content }}"
+                    </div>
+                    @if (m.encrypted) {
+                      <div class="deep-bubble__flag">
+                        <span class="material-icons-outlined">lock</span> Encrypted
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </app-glass-card>
+
+        <!-- Browsing -->
+        <app-glass-card>
+          <div class="deep-card">
+            <div class="deep-card__header">
+              <span class="material-icons-outlined deep-card__icon">language</span>
+              <span class="deep-card__title">Browsing History</span>
+            </div>
+            @if (browsing$ | async; as browsing) {
+              <table class="deep-table">
+                <thead>
+                  <tr>
+                    <th>Site</th>
+                    <th>Category</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (b of browsing; track b.id) {
+                    <tr [class.deep-table__row--danger]="b.category === 'Suspicious'">
+                      <td>{{ b.url }}</td>
+                      <td>{{ b.category }}</td>
+                      <td>{{ b.timestamp | date:'MMM d, HH:mm' }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            }
+          </div>
+        </app-glass-card>
+      </div>
+    </section>
+
+    <!-- RIGHT: Analytics & Patterns -->
+    <section class="deep-shell__right">
+      <!-- Activity spikes -->
+      <app-glass-card>
+        <div class="deep-card">
+          <div class="deep-card__header">
+            <span class="material-icons-outlined deep-card__icon">insights</span>
+            <span class="deep-card__title">Activity Spikes</span>
+          </div>
+          <!-- Simple placeholder chart; could reuse timeline chart styles -->
+          @if (spikes$ | async; as spikes) {
+            <div class="deep-spikes">
+              @for (s of spikes; track s.day) {
+                <div class="deep-spikes__col">
+                  <div
+                    class="deep-spikes__bar"
+                    [style.height.%]="(s.calls + s.messages + s.browsing) * 4"
+                  ></div>
+                  <span class="deep-spikes__label">{{ s.day | slice:0:3 }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </app-glass-card>
+
+      <!-- Movement events -->
+      <app-glass-card>
+        <div class="deep-card">
+          <div class="deep-card__header">
+            <span class="material-icons-outlined deep-card__icon">timeline</span>
+            <span class="deep-card__title">Key Events</span>
+          </div>
+          @if (events$ | async; as evts) {
+            <ul class="deep-list">
+              @for (e of evts; track e.id) {
+                <li class="deep-list__item" (click)="selectMovement(e.movementId || '')">
+                  <div class="deep-list__left">
+                    <div class="deep-list__primary">{{ e.title }}</div>
+                    <div class="deep-list__secondary">{{ e.description }}</div>
+                  </div>
+                  <div class="deep-list__right">
+                    <span class="deep-time">{{ e.timestamp | date:'MMM d, HH:mm' }}</span>
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </app-glass-card>
+
+      <!-- Location intelligence -->
+      <app-location-intel
+        [selectedSuspectId]="vm.suspect?.id || null"
+        [selectedMovementId]="selectedMovementId"
+      ></app-location-intel>
+
+      <!-- Threat forecast summary -->
+      <app-glass-card>
+        <div class="deep-card">
+          <div class="deep-card__header">
+            <span class="material-icons-outlined deep-card__icon">radar</span>
+            <span class="deep-card__title">Threat Trajectory</span>
+          </div>
+          @if (forecast$ | async; as fc) {
+            <ul class="deep-list">
+              @for (c of fc | slice:0:3; track c.city) {
+                <li class="deep-list__item">
+                  <div class="deep-list__left">
+                    <div class="deep-list__primary">P{{ $index + 1 }} · {{ c.city }}</div>
+                    <div class="deep-list__secondary">
+                      {{ c.reasons.join(', ') }}
+                    </div>
+                  </div>
+                  <div class="deep-list__right">
+                    <span class="deep-pill">{{ c.threatScore }}</span>
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </app-glass-card>
+    </section>
+  </div>
+</div>

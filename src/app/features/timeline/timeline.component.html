@@ -1,0 +1,63 @@
+<app-glass-card>
+  <div class="timeline-panel">
+    @if (movements$ | async; as movements) {
+      <div class="timeline-panel__header">
+        <div class="timeline-panel__header-left">
+          <span class="material-icons-outlined timeline-panel__icon">schedule</span>
+          <h2 class="timeline-panel__title">Movement Timeline</h2>
+        </div>
+        @if (movements.length > 0) {
+          <button class="timeline-panel__play-btn" (click)="startPlayback(movements)">
+            <span class="material-icons-outlined">play_arrow</span>
+            Play
+          </button>
+        }
+      </div>
+
+      @if (movements.length > 0) {
+        <ul class="timeline-list">
+          @for (movement of movements; track movement.id; let i = $index) {
+            <li
+              class="timeline-list__item"
+              [class.timeline-list__item--selected]="movement.id === selectedMovementId"
+              [attr.data-movement-id]="movement.id"
+              (click)="onSelect(movement)"
+              tabindex="0"
+            >
+              <div class="timeline-list__icon-wrap"
+                [class.timeline-list__icon-wrap--selected]="movement.id === selectedMovementId">
+                <span class="material-icons-outlined">location_on</span>
+              </div>
+              <div class="timeline-list__body">
+                <div class="timeline-list__city">{{ movement.city }}</div>
+                <div class="timeline-list__detail">
+                  {{ movement.timestamp | date: 'dd MMM yyyy, HH:mm' }}
+                </div>
+                <div class="timeline-list__coords">
+                  {{ movement.latitude.toFixed(4) }}°N, {{ movement.longitude.toFixed(4) }}°E
+                </div>
+              </div>
+              <div class="timeline-list__order">#{{ movement.travelOrder }}</div>
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="timeline-panel__empty">
+          <span class="material-icons-outlined">info</span>
+          No movements for selected filters.
+        </div>
+      }
+    } @else {
+      <div class="timeline-panel__header">
+        <div class="timeline-panel__header-left">
+          <span class="material-icons-outlined timeline-panel__icon">schedule</span>
+          <h2 class="timeline-panel__title">Movement Timeline</h2>
+        </div>
+      </div>
+      <div class="timeline-panel__empty">
+        <span class="material-icons-outlined">person_search</span>
+        Select a suspect to view movements.
+      </div>
+    }
+  </div>
+</app-glass-card>

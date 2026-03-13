@@ -1,0 +1,10 @@
+<button class="icon-button" type="button">
+  <span class="icon-button__icon">
+    <ng-content select="[icon]"></ng-content>
+  </span>
+  @if (label) {
+    <span class="icon-button__label">{{ label }}</span>
+  }
+  <ng-content></ng-content>
+</button>
+

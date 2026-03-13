@@ -1,0 +1,20 @@
+[
+  { "id": "ct1", "name": "Delhi Central Tower", "city": "Delhi", "latitude": 28.6280, "longitude": 77.2180, "type": "macro" },
+  { "id": "ct2", "name": "Delhi South Relay", "city": "Delhi", "latitude": 28.5500, "longitude": 77.2100, "type": "relay" },
+  { "id": "ct3", "name": "Jaipur Amber Tower", "city": "Jaipur", "latitude": 26.9200, "longitude": 75.7800, "type": "macro" },
+  { "id": "ct4", "name": "Jaipur Micro Cell", "city": "Jaipur", "latitude": 26.9050, "longitude": 75.7950, "type": "micro" },
+  { "id": "ct5", "name": "Ahmedabad SG Highway Tower", "city": "Ahmedabad", "latitude": 23.0300, "longitude": 72.5650, "type": "macro" },
+  { "id": "ct6", "name": "Mumbai Bandra Tower", "city": "Mumbai", "latitude": 19.0600, "longitude": 72.8400, "type": "macro" },
+  { "id": "ct7", "name": "Mumbai Andheri Relay", "city": "Mumbai", "latitude": 19.1200, "longitude": 72.8500, "type": "relay" },
+  { "id": "ct8", "name": "Pune Camp Tower", "city": "Pune", "latitude": 18.5250, "longitude": 73.8700, "type": "macro" },
+  { "id": "ct9", "name": "Hyderabad HITEC Tower", "city": "Hyderabad", "latitude": 17.4400, "longitude": 78.3800, "type": "macro" },
+  { "id": "ct10", "name": "Hyderabad Secunderabad Relay", "city": "Hyderabad", "latitude": 17.4350, "longitude": 78.5000, "type": "relay" },
+  { "id": "ct11", "name": "Bangalore Whitefield Tower", "city": "Bangalore", "latitude": 12.9700, "longitude": 77.7500, "type": "macro" },
+  { "id": "ct12", "name": "Bangalore Koramangala Micro", "city": "Bangalore", "latitude": 12.9350, "longitude": 77.6250, "type": "micro" },
+  { "id": "ct13", "name": "Chennai OMR Tower", "city": "Chennai", "latitude": 13.0500, "longitude": 80.2500, "type": "macro" },
+  { "id": "ct14", "name": "Kolkata Salt Lake Tower", "city": "Kolkata", "latitude": 22.5800, "longitude": 88.4000, "type": "macro" },
+  { "id": "ct15", "name": "Lucknow Gomti Nagar Tower", "city": "Lucknow", "latitude": 26.8500, "longitude": 80.9700, "type": "macro" },
+  { "id": "ct16", "name": "Bhopal MP Nagar Tower", "city": "Bhopal", "latitude": 23.2300, "longitude": 77.4300, "type": "macro" },
+  { "id": "ct17", "name": "Nagpur Dharampeth Tower", "city": "Nagpur", "latitude": 21.1500, "longitude": 79.0700, "type": "macro" },
+  { "id": "ct18", "name": "Indore Vijay Nagar Tower", "city": "Indore", "latitude": 22.7400, "longitude": 75.8900, "type": "macro" }
+]

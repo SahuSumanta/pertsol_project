@@ -1,0 +1,219 @@
+<div class="profile-overlay" (click)="onBackdropClick($event)">
+  <div class="profile-panel">
+    <div class="profile-panel__header">
+      <div class="profile-panel__header-left">
+        <span class="material-icons-outlined profile-panel__icon">fingerprint</span>
+        <h2 class="profile-panel__title">Intelligence Profile</h2>
+      </div>
+      <button class="profile-panel__close" (click)="close.emit()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+
+    @if (suspect) {
+      <div class="profile-panel__body">
+        <!-- Profile Card -->
+        <app-glass-card>
+          <div class="profile-card">
+            <div class="profile-card__avatar profile-card__avatar--{{ suspect.riskLevel ?? 'low' }}">
+              {{ suspect.displayName.charAt(0) }}
+            </div>
+            <div class="profile-card__info">
+              <h3 class="profile-card__name">{{ suspect.displayName }}</h3>
+              @if (suspect.alias) {
+                <span class="profile-card__alias">"{{ suspect.alias }}"</span>
+              }
+              <div class="profile-card__meta">
+                <span class="profile-card__meta-item">
+                  <span class="material-icons-outlined" [style.color]="getStatusColor(suspect.surveillanceStatus)">radar</span>
+                  {{ suspect.surveillanceStatus ?? 'unknown' | titlecase }}
+                </span>
+                <span class="profile-card__meta-item">
+                  <span class="material-icons-outlined">trending_up</span>
+                  {{ suspect.activityLevel ?? 'unknown' | titlecase }}
+                </span>
+                <span class="profile-card__meta-item">
+                  <span class="material-icons-outlined">signal_cellular_alt</span>
+                  @for (i of [1,2,3,4]; track i) {
+                    <span class="profile-card__signal-bar" [class.profile-card__signal-bar--active]="i <= getSignalBars(suspect.signalStrength)"></span>
+                  }
+                </span>
+              </div>
+            </div>
+            <div class="profile-card__stats">
+              <div class="profile-card__stat">
+                <span class="profile-card__stat-value profile-card__stat-value--{{ suspect.riskLevel ?? 'low' }}">{{ suspect.riskScore ?? 0 }}</span>
+                <span class="profile-card__stat-label">Risk Score</span>
+              </div>
+              <div class="profile-card__stat">
+                <span class="profile-card__stat-value">{{ movements.length }}</span>
+                <span class="profile-card__stat-label">Movements</span>
+              </div>
+              <div class="profile-card__stat">
+                <span class="profile-card__stat-value">{{ callLogs.length }}</span>
+                <span class="profile-card__stat-label">Calls</span>
+              </div>
+            </div>
+          </div>
+        </app-glass-card>
+
+        <div class="profile-panel__grid">
+          <!-- Call Logs -->
+          <app-glass-card>
+            <div class="section-header">
+              <span class="material-icons-outlined section-header__icon section-header__icon--green">call</span>
+              <span class="section-header__title">Call Logs</span>
+              <span class="section-header__badge">{{ callLogs.length }}</span>
+            </div>
+            <div class="call-list">
+              @for (call of callLogs; track call.id) {
+                <div class="call-item">
+                  <div class="call-item__icon" [style.color]="getCallColor(call.type)">
+                    <span class="material-icons-outlined">{{ getCallIcon(call.type) }}</span>
+                  </div>
+                  <div class="call-item__info">
+                    <span class="call-item__name">{{ call.contact }}</span>
+                    <span class="call-item__phone">{{ call.phone }}</span>
+                  </div>
+                  <div class="call-item__right">
+                    <span class="call-item__duration">{{ call.duration }}</span>
+                    <span class="call-item__time">{{ call.timestamp | date:'HH:mm' }}</span>
+                  </div>
+                </div>
+              }
+              @empty {
+                <div class="empty-state">No call logs intercepted</div>
+              }
+            </div>
+          </app-glass-card>
+
+          <!-- Messages -->
+          <app-glass-card>
+            <div class="section-header">
+              <span class="material-icons-outlined section-header__icon section-header__icon--blue">chat</span>
+              <span class="section-header__title">Intercepted Messages</span>
+              <span class="section-header__badge">{{ messages.length }}</span>
+            </div>
+            <div class="message-list">
+              @for (msg of messages; track msg.id) {
+                <div class="message-item" [class.message-item--outgoing]="msg.direction === 'outgoing'">
+                  <div class="message-item__header">
+                    <span class="message-item__from">
+                      @if (msg.direction === 'incoming') {
+                        <span class="material-icons-outlined">arrow_downward</span> From: {{ msg.from }}
+                      } @else {
+                        <span class="material-icons-outlined">arrow_upward</span> To: {{ msg.to }}
+                      }
+                    </span>
+                    @if (msg.encrypted) {
+                      <span class="message-item__encrypted">
+                        <span class="material-icons-outlined">lock</span> Encrypted
+                      </span>
+                    }
+                  </div>
+                  <div class="message-item__content">"{{ msg.content }}"</div>
+                  <span class="message-item__time">{{ msg.timestamp | date:'MMM d, HH:mm' }}</span>
+                </div>
+              }
+              @empty {
+                <div class="empty-state">No intercepted messages</div>
+              }
+            </div>
+          </app-glass-card>
+
+          <!-- Activity Spikes -->
+          <app-glass-card>
+            <div class="section-header">
+              <span class="material-icons-outlined section-header__icon section-header__icon--amber">insights</span>
+              <span class="section-header__title">Activity Spikes</span>
+            </div>
+            <div class="activity-chart">
+              @for (spike of activitySpikes; track spike.day) {
+                <div class="activity-chart__col">
+                  <div class="activity-chart__bar-wrap">
+                    <div
+                      class="activity-chart__bar activity-chart__bar--calls"
+                      [style.height.%]="maxActivity > 0 ? (spike.calls / maxActivity * 100) : 0"
+                    ></div>
+                    <div
+                      class="activity-chart__bar activity-chart__bar--msgs"
+                      [style.height.%]="maxActivity > 0 ? (spike.messages / maxActivity * 100) : 0"
+                    ></div>
+                    <div
+                      class="activity-chart__bar activity-chart__bar--browse"
+                      [style.height.%]="maxActivity > 0 ? (spike.browsing / maxActivity * 100) : 0"
+                    ></div>
+                  </div>
+                  <span class="activity-chart__label">{{ spike.day.substring(0, 3) }}</span>
+                </div>
+              }
+              @empty {
+                <div class="empty-state">No activity data</div>
+              }
+            </div>
+            <div class="activity-legend">
+              <span class="activity-legend__item"><span class="activity-legend__dot activity-legend__dot--calls"></span> Calls</span>
+              <span class="activity-legend__item"><span class="activity-legend__dot activity-legend__dot--msgs"></span> Messages</span>
+              <span class="activity-legend__item"><span class="activity-legend__dot activity-legend__dot--browse"></span> Browsing</span>
+            </div>
+          </app-glass-card>
+
+          <!-- Browsing History -->
+          <app-glass-card>
+            <div class="section-header">
+              <span class="material-icons-outlined section-header__icon section-header__icon--purple">language</span>
+              <span class="section-header__title">Browsing History</span>
+              <span class="section-header__badge">{{ browsingHistory.length }}</span>
+            </div>
+            <div class="browse-list">
+              @for (entry of browsingHistory; track entry.id) {
+                <div class="browse-item">
+                  <span class="material-icons-outlined browse-item__icon">public</span>
+                  <span class="browse-item__url">{{ entry.url }}</span>
+                  <span class="browse-item__tag" [style.color]="getCategoryColor(entry.category)" [style.border-color]="getCategoryColor(entry.category) + '33'">{{ entry.category }}</span>
+                </div>
+              }
+              @empty {
+                <div class="empty-state">No browsing data</div>
+              }
+            </div>
+          </app-glass-card>
+
+          <!-- Prediction + Nearest Station -->
+          <app-glass-card>
+            <div class="section-header">
+              <span class="material-icons-outlined section-header__icon section-header__icon--cyan">explore</span>
+              <span class="section-header__title">Predictive Intelligence</span>
+            </div>
+            <div class="predict-panel">
+              @if (prediction) {
+                <div class="predict-card">
+                  <span class="material-icons-outlined predict-card__icon">location_searching</span>
+                  <div class="predict-card__info">
+                    <span class="predict-card__label">Predicted Next Location</span>
+                    <span class="predict-card__value">{{ prediction.city }}</span>
+                    <span class="predict-card__reason">{{ prediction.reason }}</span>
+                  </div>
+                  <span class="predict-card__confidence">{{ prediction.confidence }}%</span>
+                </div>
+              }
+              @if (nearestStation) {
+                <div class="predict-card">
+                  <span class="material-icons-outlined predict-card__icon predict-card__icon--blue">local_police</span>
+                  <div class="predict-card__info">
+                    <span class="predict-card__label">Nearest Police Station</span>
+                    <span class="predict-card__value">{{ nearestStation.station.name }}</span>
+                    <span class="predict-card__reason">Distance: {{ nearestStation.distanceKm }} km</span>
+                  </div>
+                </div>
+              }
+              @if (!prediction && !nearestStation) {
+                <div class="empty-state">Insufficient data for prediction</div>
+              }
+            </div>
+          </app-glass-card>
+        </div>
+      </div>
+    }
+  </div>
+</div>

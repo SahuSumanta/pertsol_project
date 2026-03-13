@@ -1,0 +1,68 @@
+<div class="modal-overlay" (click)="onBackdropClick($event)">
+  <div class="share-card">
+    <div class="share-card__header">
+      <div class="share-card__header-left">
+        <span class="material-icons-outlined share-card__icon">share</span>
+        <h2 class="share-card__title">Share Case</h2>
+      </div>
+      <button class="share-card__close" (click)="close.emit()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+
+    @if (shared) {
+      <div class="share-card__body">
+        <div class="share-card__success">
+          <span class="material-icons-outlined">check_circle</span>
+          <span>Case shared successfully!</span>
+        </div>
+        <button class="share-card__btn share-card__btn--primary" (click)="close.emit()">Done</button>
+      </div>
+    } @else {
+      <div class="share-card__body">
+        @if (suspect) {
+          <div class="share-card__suspect-badge">
+            <span class="material-icons-outlined">person</span>
+            <span>{{ suspect.displayName }}</span>
+            <span class="share-card__risk-tag share-card__risk-tag--{{ suspect.riskLevel ?? 'low' }}">{{ suspect.riskLevel ?? 'low' | uppercase }}</span>
+          </div>
+        }
+
+        <div class="share-card__field">
+          <label class="share-card__label">Share with Officer</label>
+          <div class="share-card__officer-list">
+            @for (officer of officers; track officer.id) {
+              <button
+                class="share-card__officer-btn"
+                [class.share-card__officer-btn--selected]="selectedOfficerId === officer.id"
+                (click)="selectedOfficerId = officer.id"
+              >
+                <div class="share-card__officer-avatar">{{ getInitials(officer.name) }}</div>
+                <div class="share-card__officer-info">
+                  <span class="share-card__officer-name">{{ officer.name }}</span>
+                  <span class="share-card__officer-role">{{ officer.role }} · {{ officer.badge }}</span>
+                </div>
+                @if (selectedOfficerId === officer.id) {
+                  <span class="material-icons-outlined share-card__check">check_circle</span>
+                }
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="share-card__field">
+          <label class="share-card__label">Notes (optional)</label>
+          <textarea class="share-card__textarea" rows="2" placeholder="Briefing notes..." [(ngModel)]="notes"></textarea>
+        </div>
+      </div>
+
+      <div class="share-card__footer">
+        <button class="share-card__btn share-card__btn--secondary" (click)="close.emit()">Cancel</button>
+        <button class="share-card__btn share-card__btn--primary" (click)="onShare()" [disabled]="!selectedOfficerId">
+          <span class="material-icons-outlined">send</span>
+          Share Case
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,9 @@
+[
+  { "id": "s1", "displayName": "Ravi Kumar", "riskLevel": "high", "riskScore": 92, "alias": "Shadow", "phone": "+91 98100 XXXXX", "lastKnownLocation": "Delhi", "surveillanceStatus": "active", "activityLevel": "high", "signalStrength": "strong" },
+  { "id": "s2", "displayName": "Amit Sharma", "riskLevel": "medium", "riskScore": 65, "alias": "Merchant", "phone": "+91 99001 XXXXX", "lastKnownLocation": "Bangalore", "surveillanceStatus": "active", "activityLevel": "moderate", "signalStrength": "strong" },
+  { "id": "s3", "displayName": "Sanjay Verma", "riskLevel": "medium", "riskScore": 58, "phone": "+91 88765 XXXXX", "lastKnownLocation": "Nagpur", "surveillanceStatus": "active", "activityLevel": "moderate", "signalStrength": "moderate" },
+  { "id": "s4", "displayName": "Imran Khan", "riskLevel": "high", "riskScore": 88, "alias": "Architect", "phone": "+91 77600 XXXXX", "lastKnownLocation": "Delhi", "surveillanceStatus": "active", "activityLevel": "high", "signalStrength": "weak" },
+  { "id": "s5", "displayName": "Rahul Patel", "riskLevel": "low", "riskScore": 32, "phone": "+91 77009 XXXXX", "lastKnownLocation": "Ahmedabad", "surveillanceStatus": "paused", "activityLevel": "low", "signalStrength": "strong" },
+  { "id": "s6", "displayName": "Arjun Singh", "riskLevel": "medium", "riskScore": 51, "phone": "+91 88900 XXXXX", "lastKnownLocation": "Hyderabad", "surveillanceStatus": "active", "activityLevel": "moderate", "signalStrength": "moderate" },
+  { "id": "s7", "displayName": "Mohit Gupta", "riskLevel": "low", "riskScore": 28, "phone": "+91 99500 XXXXX", "lastKnownLocation": "Delhi", "surveillanceStatus": "inactive", "activityLevel": "low", "signalStrength": "lost" }
+]

@@ -1,0 +1,36 @@
+<app-glass-card>
+  <div class="notes-panel">
+    <div class="notes-panel__header">
+      <span class="material-icons-outlined notes-panel__icon">description</span>
+      <h2 class="notes-panel__title">Investigation Notes</h2>
+    </div>
+
+    @if (notes$ | async; as notes) {
+      @if (notes.length > 0) {
+        <ul class="notes-list">
+          @for (note of notes; track note.id) {
+            <li class="notes-list__item">
+              <div class="notes-list__icon-wrap">
+                <span class="material-icons-outlined">edit_note</span>
+              </div>
+              <div class="notes-list__body">
+                <div class="notes-list__content">{{ note.content }}</div>
+                <div class="notes-list__time">{{ note.timestamp | date: 'MMM d, HH:mm' }}</div>
+              </div>
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="notes-panel__empty">
+          <span class="material-icons-outlined">info</span>
+          No notes for this suspect.
+        </div>
+      }
+    } @else {
+      <div class="notes-panel__empty">
+        <span class="material-icons-outlined">info</span>
+        Select a suspect to view notes.
+      </div>
+    }
+  </div>
+</app-glass-card>

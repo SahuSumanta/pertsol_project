@@ -1,0 +1,9 @@
+[
+  { "id": "s1", "displayName": "Ravi Kumar", "riskLevel": "high", "riskScore": 92, "alias": "Shadow" },
+  { "id": "s2", "displayName": "Amit Sharma", "riskLevel": "medium", "riskScore": 65, "alias": "Merchant" },
+  { "id": "s3", "displayName": "Sanjay Verma", "riskLevel": "medium", "riskScore": 58 },
+  { "id": "s4", "displayName": "Imran Khan", "riskLevel": "high", "riskScore": 88, "alias": "Architect" },
+  { "id": "s5", "displayName": "Rahul Patel", "riskLevel": "low", "riskScore": 32 },
+  { "id": "s6", "displayName": "Arjun Singh", "riskLevel": "medium", "riskScore": 51 },
+  { "id": "s7", "displayName": "Mohit Gupta", "riskLevel": "low", "riskScore": 28 }
+]

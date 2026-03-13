@@ -1,0 +1,78 @@
+<app-dashboard-header
+  (addSuspect)="openAddSuspect()"
+  (openProfile)="openSuspectProfile()"
+  (openTimeWarp)="openTimeWarp()"
+  (shareCaseClicked)="openCaseShare()"
+></app-dashboard-header>
+
+<div class="app-shell">
+  <aside class="app-shell__left">
+    <app-suspect-list
+      (suspectSelected)="onSuspectSelected($event)"
+      (viewProfile)="onViewProfile($event)"
+    ></app-suspect-list>
+    <app-day-selector
+      [selectedDay]="selectedDay"
+      (daySelected)="onDaySelected($event)"
+    ></app-day-selector>
+  </aside>
+
+  <main class="app-shell__center">
+    <app-map-workspace
+      [selectedSuspectId]="selectedSuspectId"
+      [selectedDay]="selectedDay"
+      [selectedMovementId]="selectedMovementId"
+      (markerClicked)="onMovementSelected($event)"
+    ></app-map-workspace>
+  </main>
+
+  <aside class="app-shell__right">
+    <app-timeline
+      [selectedSuspectId]="selectedSuspectId"
+      [selectedDay]="selectedDay"
+      [selectedMovementId]="selectedMovementId"
+      (movementSelected)="onMovementSelected($event)"
+    ></app-timeline>
+    <app-intel-panel
+      [selectedSuspectId]="selectedSuspectId"
+    ></app-intel-panel>
+    <app-pattern-panel
+      [selectedSuspectId]="selectedSuspectId"
+    ></app-pattern-panel>
+    <app-location-intel
+      [selectedSuspectId]="selectedSuspectId"
+      [selectedMovementId]="selectedMovementId"
+    ></app-location-intel>
+    <app-network-graph
+      [selectedSuspectId]="selectedSuspectId"
+    ></app-network-graph>
+    <app-event-panel [selectedSuspectId]="selectedSuspectId"></app-event-panel>
+    <app-notes-panel [selectedSuspectId]="selectedSuspectId"></app-notes-panel>
+  </aside>
+</div>
+
+@if (showAddSuspect) {
+  <app-add-suspect (close)="closeAddSuspect()"></app-add-suspect>
+}
+
+@if (showSuspectProfile && selectedSuspectId) {
+  <app-suspect-profile
+    [suspectId]="selectedSuspectId"
+    (close)="closeSuspectProfile()"
+  ></app-suspect-profile>
+}
+
+@if (showTimeWarp && selectedSuspectId) {
+  <app-time-warp
+    [selectedSuspectId]="selectedSuspectId"
+    (movementSelected)="onMovementSelected($event)"
+    (close)="closeTimeWarp()"
+  ></app-time-warp>
+}
+
+@if (showCaseShare && selectedSuspectId) {
+  <app-case-share
+    [suspectId]="selectedSuspectId"
+    (close)="closeCaseShare()"
+  ></app-case-share>
+}

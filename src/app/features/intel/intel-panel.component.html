@@ -1,0 +1,87 @@
+@if (stats$ | async; as stats) {
+  <app-glass-card>
+    <div class="intel-panel">
+      <div class="intel-panel__header">
+        <span class="material-icons-outlined intel-panel__icon">analytics</span>
+        <h2 class="intel-panel__title">Intelligence</h2>
+      </div>
+
+      @if (risk$ | async; as risk) {
+        <div class="risk-gauge">
+          <div class="risk-gauge__label-row">
+            <span class="risk-gauge__title">Risk score</span>
+            <span class="risk-gauge__value">{{ risk.score }}</span>
+          </div>
+          <div class="risk-gauge__bar">
+            <div
+              class="risk-gauge__bar-fill risk-gauge__bar-fill--{{ risk.level }}"
+              [style.width.%]="risk.score"
+            ></div>
+          </div>
+          <div class="risk-gauge__legend">
+            <span class="risk-gauge__chip risk-gauge__chip--low">LOW</span>
+            <span class="risk-gauge__chip risk-gauge__chip--medium">MEDIUM</span>
+            <span class="risk-gauge__chip risk-gauge__chip--high">HIGH</span>
+          </div>
+        </div>
+      }
+
+      <div class="intel-grid">
+        <div class="intel-card">
+          <div class="intel-card__icon-wrap intel-card__icon-wrap--blue">
+            <span class="material-icons-outlined">directions_walk</span>
+          </div>
+          <div class="intel-card__content">
+            <div class="intel-card__label">Total movements</div>
+            <div class="intel-card__value">{{ stats.totalMovements }}</div>
+          </div>
+        </div>
+
+        <div class="intel-card">
+          <div class="intel-card__icon-wrap intel-card__icon-wrap--emerald">
+            <span class="material-icons-outlined">location_city</span>
+          </div>
+          <div class="intel-card__content">
+            <div class="intel-card__label">Cities visited</div>
+            <div class="intel-card__value">{{ stats.citiesVisited }}</div>
+          </div>
+        </div>
+
+        <div class="intel-card">
+          <div class="intel-card__icon-wrap intel-card__icon-wrap--amber">
+            <span class="material-icons-outlined">straighten</span>
+          </div>
+          <div class="intel-card__content">
+            <div class="intel-card__label">Total distance</div>
+            <div class="intel-card__value">{{ stats.totalDistanceKm }} km</div>
+          </div>
+        </div>
+
+        <div class="intel-card">
+          <div class="intel-card__icon-wrap intel-card__icon-wrap--rose">
+            <span class="material-icons-outlined">flag</span>
+          </div>
+          <div class="intel-card__content">
+            <div class="intel-card__label">Events recorded</div>
+            <div class="intel-card__value">{{ stats.eventsRecorded }}</div>
+          </div>
+        </div>
+
+        @if (stats.topCity && stats.topCityVisits) {
+          <div class="intel-card intel-card--wide">
+            <div class="intel-card__icon-wrap intel-card__icon-wrap--purple">
+              <span class="material-icons-outlined">star</span>
+            </div>
+            <div class="intel-card__content">
+              <div class="intel-card__label">Most visited city</div>
+              <div class="intel-card__value">
+                {{ stats.topCity }}
+                <span class="intel-card__sub">({{ stats.topCityVisits }} visits)</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </app-glass-card>
+}

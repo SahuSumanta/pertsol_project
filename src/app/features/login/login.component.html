@@ -1,0 +1,72 @@
+<div class="login-page">
+  <div class="login-page__bg-grid"></div>
+
+  <div class="login-card">
+    <div class="login-card__header">
+      <div class="login-card__shield">
+        <span class="material-icons-outlined">shield</span>
+      </div>
+      <h1 class="login-card__title">Suspect Intel</h1>
+      <p class="login-card__subtitle">Intelligence Investigation Platform</p>
+    </div>
+
+    <div class="login-card__body">
+      <div class="login-card__field">
+        <label class="login-card__label">
+          <span class="material-icons-outlined">badge</span>
+          Officer ID
+        </label>
+        <input
+          class="login-card__input"
+          type="text"
+          placeholder="e.g. OFF001"
+          [(ngModel)]="officerId"
+          (keyup.enter)="onLogin()"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="login-card__field">
+        <label class="login-card__label">
+          <span class="material-icons-outlined">lock</span>
+          Password
+        </label>
+        <input
+          class="login-card__input"
+          type="password"
+          placeholder="Enter password"
+          [(ngModel)]="password"
+          (keyup.enter)="onLogin()"
+        />
+      </div>
+
+      @if (error) {
+        <div class="login-card__error">
+          <span class="material-icons-outlined">error_outline</span>
+          {{ error }}
+        </div>
+      }
+
+      <button
+        class="login-card__btn"
+        (click)="onLogin()"
+        [disabled]="loading || !officerId || !password"
+      >
+        @if (loading) {
+          <span class="login-card__spinner"></span>
+          Authenticating...
+        } @else {
+          <span class="material-icons-outlined">login</span>
+          Access Dashboard
+        }
+      </button>
+    </div>
+
+    <div class="login-card__footer">
+      <span class="material-icons-outlined">info</span>
+      Authorized personnel only. All access is monitored and logged.
+    </div>
+  </div>
+
+  <div class="login-page__version">SIMDS v2.0 — Classified</div>
+</div>

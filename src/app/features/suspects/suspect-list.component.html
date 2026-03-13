@@ -1,0 +1,67 @@
+<app-glass-card>
+  <div class="suspect-panel">
+    <div class="suspect-panel__header">
+      <div class="suspect-panel__header-left">
+        <span class="material-icons-outlined suspect-panel__icon">person_search</span>
+        <h2 class="suspect-panel__title">Suspect Priority</h2>
+      </div>
+      @if (suspects$ | async; as suspects) {
+        <span class="suspect-panel__badge">{{ suspects.length }} TOTAL</span>
+      }
+    </div>
+
+    @if (suspects$ | async; as suspects) {
+      <ul class="suspect-list">
+        @if (suspects.length > 0) {
+          @for (suspect of suspects; track suspect.id) {
+            <li
+              class="suspect-list__item"
+              [class.suspect-list__item--selected]="(selectedId$ | async) === suspect.id"
+              (click)="onSelect(suspect)"
+              tabindex="0"
+            >
+              <div class="suspect-list__avatar-wrap suspect-list__avatar-wrap--{{ suspect.riskLevel || 'unknown' }}">
+                <div class="suspect-list__avatar">
+                  {{ getInitials(suspect.displayName) }}
+                </div>
+                <span class="suspect-list__badge">
+                  #{{ suspect.id.replace('s', '') }}
+                </span>
+              </div>
+              <div class="suspect-list__info">
+                <div class="suspect-list__name-row">
+                  <div class="suspect-list__name">{{ suspect.displayName }}</div>
+                  <button
+                    type="button"
+                    class="suspect-list__profile-btn"
+                    (click)="onViewProfile(suspect.id); $event.stopPropagation()"
+                  >
+                    <span class="material-icons-outlined">open_in_new</span>
+                  </button>
+                </div>
+                <div class="suspect-list__meta">
+                  <span class="suspect-list__risk suspect-list__risk--{{ suspect.riskLevel || 'unknown' }}">
+                    @switch (suspect.riskLevel) {
+                      @case ('high') { HIGH RISK }
+                      @case ('medium') { MEDIUM }
+                      @case ('low') { LOW }
+                      @default { UNKNOWN }
+                    }
+                  </span>
+                  <span class="suspect-list__count">{{ suspect.movementCount }} moves</span>
+                </div>
+              </div>
+              @if (suspect.riskScore) {
+                <div class="suspect-list__score suspect-list__score--{{ suspect.riskLevel || 'unknown' }}">
+                  {{ suspect.riskScore }}
+                </div>
+              }
+            </li>
+          }
+        } @else {
+          <div class="suspect-panel__empty">No suspects available.</div>
+        }
+      </ul>
+    }
+  </div>
+</app-glass-card>

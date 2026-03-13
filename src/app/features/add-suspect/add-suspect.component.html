@@ -1,0 +1,64 @@
+<div class="modal-overlay" (click)="onBackdropClick($event)">
+  <div class="modal-card">
+    <div class="modal-card__header">
+      <div class="modal-card__header-left">
+        <span class="material-icons-outlined modal-card__icon">person_add</span>
+        <h2 class="modal-card__title">Add New Suspect</h2>
+      </div>
+      <button class="modal-card__close" (click)="close.emit()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="modal-card__body">
+      <div class="modal-card__field">
+        <label class="modal-card__label">Suspect Name</label>
+        <input class="modal-card__input" type="text" placeholder="Full name" [(ngModel)]="name" />
+      </div>
+
+      <div class="modal-card__field">
+        <label class="modal-card__label">Risk Level</label>
+        <div class="modal-card__risk-group">
+          <button
+            class="modal-card__risk-btn"
+            [class.modal-card__risk-btn--active-low]="riskLevel === 'low'"
+            (click)="riskLevel = 'low'"
+          >Low</button>
+          <button
+            class="modal-card__risk-btn"
+            [class.modal-card__risk-btn--active-medium]="riskLevel === 'medium'"
+            (click)="riskLevel = 'medium'"
+          >Medium</button>
+          <button
+            class="modal-card__risk-btn"
+            [class.modal-card__risk-btn--active-high]="riskLevel === 'high'"
+            (click)="riskLevel = 'high'"
+          >High</button>
+        </div>
+      </div>
+
+      <div class="modal-card__field">
+        <label class="modal-card__label">Last Known Location</label>
+        <input class="modal-card__input" type="text" placeholder="e.g. Delhi, Mumbai" [(ngModel)]="lastKnownLocation" />
+      </div>
+
+      <div class="modal-card__field">
+        <label class="modal-card__label">Phone Number</label>
+        <input class="modal-card__input" type="text" placeholder="+91 XXXXX XXXXX" [(ngModel)]="phone" />
+      </div>
+
+      <div class="modal-card__field">
+        <label class="modal-card__label">Investigation Notes</label>
+        <textarea class="modal-card__textarea" rows="3" placeholder="Initial observations..." [(ngModel)]="notes"></textarea>
+      </div>
+    </div>
+
+    <div class="modal-card__footer">
+      <button class="modal-card__btn modal-card__btn--secondary" (click)="close.emit()">Cancel</button>
+      <button class="modal-card__btn modal-card__btn--primary" (click)="onSave()" [disabled]="!name.trim()">
+        <span class="material-icons-outlined">add</span>
+        Add Suspect
+      </button>
+    </div>
+  </div>
+</div>

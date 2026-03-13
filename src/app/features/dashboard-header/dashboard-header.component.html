@@ -1,0 +1,54 @@
+<header class="dash-header">
+  <div class="dash-header__brand">
+    <span class="material-icons-outlined dash-header__shield">shield</span>
+    <div class="dash-header__titles">
+      <span class="dash-header__app-name">Suspect Intel</span>
+      <span class="dash-header__case-name">Operation Midnight</span>
+    </div>
+    <span class="dash-header__case-badge">
+      <span class="dash-header__badge-dot"></span>
+      ACTIVE
+    </span>
+  </div>
+
+  <div class="dash-header__center">
+    <div class="dash-header__search">
+      <span class="material-icons-outlined dash-header__search-icon">search</span>
+      <span class="dash-header__search-text">Search suspects, locations, events...</span>
+    </div>
+  </div>
+
+  <div class="dash-header__actions">
+    <button class="dash-header__action-btn" (click)="addSuspect.emit()" title="Add Suspect">
+      <span class="material-icons-outlined">person_add</span>
+      ADD SUSPECT
+    </button>
+    <button class="dash-header__action-btn dash-header__action-btn--live" title="Live Mode">
+      <span class="material-icons-outlined">live_tv</span>
+      LIVE
+    </button>
+    <button class="dash-header__action-btn" (click)="openTimeWarp.emit()" title="Time Warp">
+      <span class="material-icons-outlined">history</span>
+      TIME WARP
+    </button>
+    <button class="dash-header__action-btn" (click)="shareCaseClicked.emit()" title="Share Case">
+      <span class="material-icons-outlined">share</span>
+      SHARE
+    </button>
+
+    <div class="dash-header__divider"></div>
+
+    @if (officer) {
+      <div class="dash-header__officer">
+        <div class="dash-header__officer-avatar">{{ getInitials(officer.name) }}</div>
+        <div class="dash-header__officer-info">
+          <span class="dash-header__officer-name">{{ officer.name }}</span>
+          <span class="dash-header__officer-role">{{ officer.role }}</span>
+        </div>
+      </div>
+      <button class="dash-header__action-btn dash-header__logout-btn" (click)="logout()" title="Logout">
+        <span class="material-icons-outlined">logout</span>
+      </button>
+    }
+  </div>
+</header>

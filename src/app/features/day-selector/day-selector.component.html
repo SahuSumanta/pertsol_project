@@ -1,0 +1,21 @@
+<app-glass-card>
+  <div class="day-panel">
+    <div class="day-panel__header">
+      <span class="material-icons-outlined day-panel__icon">date_range</span>
+      <h2 class="day-panel__title">Day Filter</h2>
+    </div>
+
+    <div class="day-list">
+      @for (day of days; track day) {
+        <button
+          type="button"
+          class="day-chip"
+          [class.day-chip--selected]="day === selectedDay"
+          (click)="onSelect(day)"
+        >
+          {{ day }}
+        </button>
+      }
+    </div>
+  </div>
+</app-glass-card>
